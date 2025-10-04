@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GALLANT TRADING</title>
+  <meta name="description" content="GALLANT TRADING — Trading of wholesale Petroleum Products" />
+  <!-- Favicon (uses the uploaded logo file) -->
+  <link rel="icon" type="image/png" href="https://i.postimg.cc/50bSztph/IMG-4364.jpg" />
+  <style>
+    :root{
+      --bg:#0b0b0b;
+      --panel:#0f0f0f;
+      --muted:#bfbfbf;
+      --gold:#c99a2f;
+      --white:#ffffff;
+      --accent:rgba(201,154,47,0.95);
+      --max-width:1200px;
+      --radius:14px;
+      --glass: rgba(255,255,255,0.03);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;background:linear-gradient(180deg,var(--bg),#060606);color:var(--muted);-webkit-font-smoothing:antialiased}
+    a{color:var(--gold);text-decoration:none}
+    .container{max-width:var(--max-width);margin:0 auto;padding:28px}
+
+    /* Header / Nav */
+    header{position:sticky;top:0;z-index:60;background:linear-gradient(180deg,rgba(11,11,11,0.6),rgba(11,11,11,0.35));backdrop-filter:blur(6px);border-bottom:1px solid rgba(255,255,255,0.03)}
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo img{width:56px;height:56px;border-radius:10px;object-fit:contain}
+    .brand h1{margin:0;font-size:18px;color:var(--white)}
+    .brand p{margin:0;font-size:12px;color:var(--muted)}
+    nav ul{list-style:none;display:flex;gap:18px;margin:0;padding:0;align-items:center}
+    nav li{font-size:15px}
+    .cta{background:var(--gold);color:#071015;padding:10px 14px;border-radius:10px;font-weight:700}
+
+    /* Mobile nav — hidden by default, shown via .open */
+    #main-nav{transition:all 220ms ease}
+    #main-nav.open{display:flex;flex-direction:column;position:absolute;right:28px;top:74px;background:rgba(6,6,6,0.92);padding:12px;border-radius:8px;border:1px solid rgba(255,255,255,0.03)}
+
+    .menu-toggle{display:none;background:transparent;border:0;color:var(--muted);font-size:22px;cursor:pointer}
+
+    /* Page layout */
+    .hero{padding:54px 0;display:flex;gap:32px;align-items:center}
+    .hero-left{flex:1}
+    .eyebrow{display:inline-block;padding:6px 10px;border-radius:999px;background:var(--glass);color:var(--muted);font-size:13px;margin-bottom:18px}
+    h2{font-size:36px;color:var(--white);margin:0 0 12px}
+    .lead{color:var(--muted);line-height:1.6;margin-bottom:20px}
+    .actions{display:flex;gap:12px}
+    .btn{padding:12px 16px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--white);cursor:pointer}
+    .btn.primary{background:linear-gradient(90deg,var(--gold),#e7c66a);color:#071015;font-weight:700}
+
+    .hero-right{flex:1;display:flex;justify-content:center}
+    .hero-card{width:100%;max-width:520px;border-radius:16px;padding:18px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));box-shadow:0 8px 30px rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.03)}
+    .hero-card img{width:100%;border-radius:10px;display:block}
+
+    section{padding:48px 0}
+    .section-title{display:flex;align-items:center;gap:12px;margin-bottom:22px}
+    .section-title h3{margin:0;color:var(--white)}
+    .grid{display:grid;gap:20px}
+
+    /* About */
+    .about-grid{grid-template-columns:1fr 380px}
+    .about-card{background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.01));padding:22px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
+
+    /* Services */
+    .services-grid{grid-template-columns:repeat(3,1fr)}
+    .service{background:var(--panel);padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
+    .service h4{margin:6px 0 10px;color:var(--white)}
+
+    /* Gallery */
+    .gallery-grid{grid-template-columns:repeat(3,1fr)}
+    .gallery-grid img{width:100%;height:200px;object-fit:cover;border-radius:10px}
+
+    /* Contact */
+    .contact-grid{grid-template-columns:1fr 420px}
+    form .row{display:flex;gap:12px}
+    input,textarea{width:100%;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--muted)}
+    textarea{min-height:140px}
+    .map{border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.03)}
+
+    footer{padding:28px 0;border-top:1px solid rgba(255,255,255,0.03);color:var(--muted)}
+
+    /* Utilities */
+    .muted{color:var(--muted);font-size:14px}
+    .pill{display:inline-block;padding:8px 12px;border-radius:999px;background:rgba(255,255,255,0.02);font-weight:600}
+
+    /* Simple page handling */
+    .page{display:none}
+    .page.active{display:block}
+
+    /* Responsive */
+    @media (max-width:980px){
+      .about-grid,.contact-grid{grid-template-columns:1fr}
+      .services-grid{grid-template-columns:repeat(2,1fr)}
+      .gallery-grid{grid-template-columns:repeat(2,1fr)}
+    }
+    @media (max-width:680px){
+      .hero{flex-direction:column-reverse;padding:28px 0}
+      h2{font-size:28px}
+      nav ul{display:none}
+      .menu-toggle{display:block}
+      .services-grid{grid-template-columns:1fr}
+      .gallery-grid{grid-template-columns:1fr}
+      /* ensure the open nav looks correct on very small screens */
+      #main-nav.open{right:12px;left:12px;top:66px}
+    }
+
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="logo">
+          <a href="#home" onclick="navigate('#home')"><img src="https://i.postimg.cc/50bSztph/IMG-4364.jpg" alt="Gallant Trading Logo"></a>
+        </div>
+        <div>
+          <h1>GALLANT TRADING</h1>
+          <p class="muted">Empowering Global Energy</p>
+        </div>
+      </div>
+
+      <nav>
+        <!-- toggleMobile is defined below in the script to prevent ReferenceError -->
+        <button class="menu-toggle" aria-label="menu" onclick="toggleMobile()">☰</button>
+        <ul id="main-nav">
+          <li><a href="#home" onclick="navigate('#home')">Home</a></li>
+          <li><a href="#about" onclick="navigate('#about')">About</a></li>
+          <li><a href="#services" onclick="navigate('#services')">Services</a></li>
+          <li><a href="#gallery" onclick="navigate('#gallery')">Gallery</a></li>
+          <li><a href="#contact" onclick="navigate('#contact')">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div style="display:flex;gap:10px;align-items:center">
+        <a class="cta" href="#contact" onclick="navigate('#contact')">Contact Us</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- HOME -->
+    <section id="home" class="page active">
+      <div class="hero">
+        <div class="hero-left">
+          <span class="eyebrow">Trusted Energy Trading Partner</span>
+          <h2>GALLANT TRADING — Global Wholesale Petroleum Trading</h2>
+          <p class="lead">
+            We specialise in the trading of wholesale petroleum products, connecting refineries with reliable buyers across the globe. 
+            With established supplier relationships, logistical expertise and strict quality compliance, we deliver consistent supply and competitive pricing.<br><br>
+            
+            <strong>Our Mission:</strong> To provide high-quality petroleum products with utmost reliability, efficiency and ensuring value creation for our partners while maintaining global standards of integrity and sustainability. Our mission is to establish enduring partnerships with suppliers and customers based on trust, reliability, and mutual success.<br><br>
+            
+            <strong>Our Vision:</strong> To be recognized as one of the most reliable and innovative energy trading companies in Middle East and Pan-Asia, driving growth and creating long-lasting partnerships.
+          </p>
+
+          <div class="actions">
+            <button class="btn primary" onclick="navigate('#contact')">Get a Quote</button>
+            <button class="btn" onclick="navigate('#services')">Our Services</button>
+          </div>
+
+          <div style="margin-top:18px;display:flex;gap:12px;align-items:center">
+            <div class="pill">Established Suppliers</div>
+            <div class="pill">Bulk Logistics</div>
+            <div class="pill">Quality Assurance</div>
+          </div>
+        </div>
+
+        <div class="hero-right">
+          <div class="hero-card">
+            <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=6d3f2d7e0d4f2b3b9f7c6a8f9a3c4d5e" alt="petroleum storage tanks">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="page">
+      <div class="section-title">
+        <h3>About GALLANT TRADING</h3>
+      </div>
+      <div class="grid about-grid">
+        <div class="about-card">
+          <h4 style="color:var(--white)">Trading of wholesale Petroleum Products</h4>
+         <p class="muted">
+            GALLANT TRADING is a specialised commodity trading company focused on wholesale petroleum products. We operate across international markets, providing sourcing, risk-managed trading, and logistics coordination. Our relationships with refineries and shipping partners ensure product availability and timely delivery.<br><br>
+            
+            <strong>Key Strengths:</strong><br>
+            • Proven track record in Gold & Oil Trading<br>
+            • Strategic partnerships with leading suppliers and buyers<br>
+            • A team with a decade of experience in global energy markets<br>
+            • Commitment to transparency, reliability, and timely delivery<br><br>
+            
+            Our comprehensive approach combines market expertise, operational excellence, and strategic partnerships to deliver superior value to clients in the dynamic world of commodity trading.
+         </p>
+          <h4 style="margin-top:18px;color:var(--white)">Our Clients & Partners</h4>
+          <ul class="muted">
+            <li>FSMTH Company Limited — Thailand</li>
+            <li>Aktau West Oil — Kazakhstan</li>
+            <li>Awaahi Al Noor International — Oman</li>
+            <li>Crimson Petroleum -- Malaysia</li>
+            <li>Trans Group LLC — United States</li>
+          </ul>
+
+          <h4 style="margin-top:18px;color:var(--white)">Compliance & Quality</h4>
+          <p class="muted">We adhere to international product specifications and customs regulations. Every shipment is subject to quality inspection and chain-of-custody documentation to protect buyer and seller interests.</p>
+        </div>
+
+        <div>
+          <div class="about-card" style="display:flex;flex-direction:column;gap:12px">
+            <div>
+              <h4 style="color:var(--white);margin:0">Headquarters</h4>
+              <p class="muted" style="margin:6px 0 0">Hamriyah Free Zone, Sharjah, UAE</p>
+            </div>
+            <div>
+              <h4 style="color:var(--white);margin:0">Our Strengths</h4>
+              <ul class="muted" style="margin:8px 0 0">
+                <li>Long-term refinery contracts</li>
+                <li>End-to-end logistics and shipping</li>
+                <li>Competitive pricing and flexible terms</li>
+              </ul>
+            </div>
+            <div>
+              <h4 style="color:var(--white);margin:0">Contact</h4>
+              <p class="muted" style="margin:6px 0 0">Email: info@gallantrade.com <br> Email: rajapitla@gallantrade.com<br>Phone: +971 50 178 0577<br>Web: www.gallantrade.com</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services" class="page">
+      <div class="section-title"><h3>Services</h3></div>
+      <div class="grid services-grid">
+        <div class="service">
+          <h4>Bulk Trading</h4>
+          <p class="muted">Sourcing and trading large-volume petroleum cargoes with secured refinery supply lines and risk-managed contracts.</p>
+        </div>
+        <div class="service">
+          <h4>Logistics & Shipping</h4>
+          <p class="muted">Chartering, scheduling and end-to-end shipping coordination to ensure on-time delivery and safe handling.</p>
+        </div>
+        <div class="service">
+          <h4>Quality Control</h4>
+          <p class="muted">Product inspection, sampling and compliance checks to guarantee product meets buyer specifications.</p>
+        </div>
+        <div class="service">
+          <h4>Risk Management</h4>
+          <p class="muted">Price hedging support, contractual protections, and insurance coordination to reduce commercial exposure.</p>
+        </div>
+        <div class="service">
+          <h4>Market Intelligence</h4>
+          <p class="muted">Regular market updates and pricing insights to help partners make informed decisions.</p>
+        </div>
+        <div class="service">
+          <h4>Custom Solutions</h4>
+          <p class="muted">Tailored commercial and delivery terms to suit unique client requirements and regional constraints.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section id="gallery" class="page">
+      <div class="section-title"><h3>Gallery</h3></div>
+      <div class="grid gallery-grid">
+        <img src="data:image/jpeg;base64,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" alt="storage tanks 1">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0v0tmNlC8GAbrbbdrhfabBctv26hD-VJdbw&s" alt="tanker ship">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-jtIpWYqhsuWSKPYAD8s2bE3yKNCBbJ13Yg&s" alt="refinery">
+        <img src="https://d2u1z1lopyfwlx.cloudfront.net/thumbnails/97145a99-31a1-5b58-b984-6e1383ee909a/78e6b489-96a1-56fa-95cf-cf268cef8715.jpg" alt="loading arms">
+        <img src="https://d2u1z1lopyfwlx.cloudfront.net/thumbnails/f5a533d2-6cfa-5625-adab-fa0d41c70277/65442c1e-3589-5103-98d4-7ce1f2317737.jpg" alt="oil storage tanks">
+        <!-- <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRO0nHYTKNzOLyc-2guaRQqVGVJDY4ThPEa4w&s" alt="control room"> -->
+        <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxISEhUSEhIVFRUVEBUVFRYVFRUVFRUVFRUWFhUVFRUYHSggGBolGxUVITEhJSkrLi4uFx8zODMsNygtLisBCgoKDg0OGhAQGisfHx0tLSsrLS0tLS0vLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSstLS0rLS0tLf/AABEIAOEA4QMBIgACEQEDEQH/xAAbAAABBQEBAAAAAAAAAAAAAAACAAEDBAUGB//EAEgQAAEDAQUDBwgFCgYDAQAAAAEAAhEDBAUSITFBUWEGEyJxgZGxMjNyc6HB0fAUI0JSshUWQ1NikqKz0uE0RIKTwvFUg4Qk/8QAGgEBAAMBAQEAAAAAAAAAAAAAAAECAwUEBv/EACURAQEBAQABAwQCAwEAAAAAAAABEQIDITFBEhNRYQQUIpHwcf/aAAwDAQACEQMRAD8AeEoRQnhd987gEoRwlCGAhJHCeFCcRpQjhKEMBCUI4ShDAQlCOEoUmAhKEcJQoMBCYqSE0IYBKEcJQpMBCaFJCaFBgITQpISIQxHCUI4ShDEcJoUsIYRAITQpIShNMDCSPCkmmJoShFCUKF8DCSOEoQwEJQjhKE0wEJ4RQlCaYCE8IoShNMDCaEeFKE0wEJQjITQmmBhJFCUJpgIShHCaE0wMJoRwlCaYCEoRwnp0i4ho1JAGzMmAmmIoShalousANwvBdgDiCW5+iZz7QO1UX0S0lrgQQYIOoKrz3z17LdcXn3QwmhPVqsb5TgOG3uUf0xn2Q53UIHaTp3KvXl4596nnw99e0HCfAqj7xjQN6hLz+9k3xVYWtz8nQeyAewZLHr+XzPaa35/h9X3uNSBvCdZWL9lv7oSWf9z9L/0p+W5CUI4ShevXkwEJ4RwlCaYCEoRwlCaYCEoRwlCaYCEoRwlCakEJQjhKE0wEJoRwlCajAQlCOEoTTAQmhHCeEMRwlCOE4amiOytNRxY2C4ScMwYBAnOJ1Giu2WxVBUZLT5xukHbOzqPcpLhqtp2hsuEupVnycg3Cx7Q0nSZHsWDTeTVpuq2ylJqscKdFr6gecfk4gBqREzC8PX8jrm2bP9fv/wBe/wCxx1lkz2+f1P00b8tTaT2tdOIUmS2M9Nu5YrbTUwtDnjyRLpcS47ekc1NaLZZn4SRXqlrGsHk0m4WiBvKKz2sk/UWKmY+9jrd40WV83dmNZ4eJdUDUaNBJ3u+A+JRto1KgENc4bMLZHYBoussLbdVa00+YoGDjHMtbGfRLOiciNh2g7wtFlz2t3nLwqdVNjW+0LH6q1xxVK4rS7Sz1O1pb4hW6XJS1EjEwUxIkue0QNu1daeSrXeXarU7rrGO5COQ1kPlc470nz7kvScZv5os/Ws/eH9aS1/zIsH6r+N3xSVEudIShHCS7OuPgYShFCUJpgYShHCUJpgIShFCUJoGEoRQlCaYGEoRQkmgCEoRJJqMDCaEaeE1OI4ShSYUsKaYjhUr5qPbTlrwzpQSeOivvIGpjMDtOgR17Nqx7dgkEb8wVXv1mS5VuPS7Zsc1RZUfSa9r3B9EuDi0lpwvc9wcCDO0gjdnvjQ5N3SDVbikYX03xxLtu7yfBRXO6HATnz9PuioD4+1bl0kC0OH7dMD95y5tk5tjpS/VlaVisNJgGGm0ZawCe85rTpOVSkYEnYFM10wRpOexU6q/MXaTlO1VKR06z7VbaqyrWJWhSAKOmVYkJpgYTKTJJB54kihKF19cgMJIoShNMCkjhKE0wEJQihPCaYCEoRQheYjLVwHVO1RepJtW55vVyHYwkgASToEi0jIiFp2azupVCHENIbn0gDq07eC562X0cWAEENkEv3zkWxmR5W7ULP73P5Xnh6vwvYVC+0UxkXidw6R7hmsO0WvGekS/cNG9wzPsUQa94hrTG5rTHbAz7Vn1/I/DXn+N+WxUvVgmBJG/Ie8+xUK941XaPYwfstcT3kKSw3JXeDFJ8SPskd0q43kza9lNw/wBJ8ZWN8/X5bTwcT4ZNKpVb5VZxB9KR7fcifanfrH95+K1W8krV9wjrEI28kbSM+iOtwCpfJb8rziT4YTq2OQajiNozI9qlpVnMHRdhG4CJ7F0bOTFpeOnVpjcC8cM9EDuR1X9bS/3B8FE7Tefhh3UPrW+mPetu7A76S7SOcZ16lY92iKgnY9snZtzW9djCLQSRGJ1N7cwQWkmCOGSnyWXrP0r45ZGsynibB2thT2SlhETOaioHLsVlhWfU9da830T0wrLQqlLVW6arE1IEYUQGal2IHwp00p1CXCp4TpQurrk4aEk6SaYZJSUqRcYCd1IjUQn1H0ooShQVbfSaYxSdzQXeGSqVb7b9ls9Z+E+KrfJIvPF1fhp4VTvK08210McXc2XNIEgGWg574JMbgdyyrReNZ+lQMH7LP+RKax2t+JgdVc4BzZk5EAjUErLvyyzI148Nl2r7rR9ItFatQolxdLpqvfIxVGdGGuAaM9J+yrNnuO1TLW2anxFNriO14dKu3IwAugAA0aToGkuIcfaVvUCvM9KlZborHN9pe0wJbSbSa2QIJBwTmc+Eq6LjadbRaj/9FQexpCuU1YYqrMxnJmjM46x34q9VwIIIIILtxPEK4y4LKP0LT6WJ34iVdajBUVKl+QLIf8tR7abT7kFTkxYj/laQ3EMaCDvBjVabUYQYj+R13n/K0x1Ym+BWDeXI6yh3RsNowAOk0nUXFxkBpa11TEWxiOgOi7pINmNewkeCGPHLPVLnFlRzm4ZawCmxxEgthziQRl9qSQtS5HRaHTqalPIZeCoUPO1fXt8ai0bj8+71lP3La8xjLW9QMgZRl1qwxVaByCtUifasumvKzTVhgVdhU7NVVZICpFGNUajQaSBOmpxxKZJmZjjCVrqMpmC8dxByMabexdD6nO+k6ZzSRDdTkOvYsuvfbR5LZ6zH8I98Ko6+Kpg5ASDAgA7YJMnuVOvJGnPju66araG0iAGudioB5eS1rJcAQ1rjrs71zp5yrOKrRBiS3nWwAP2WEzHWtC47qplxLpe00aZYHnFDZaYJ4EexdXYrFSbBbTYCDkQ0A98LD6r+W85n4cKLke4ecaRubTruH8FMgq1Y+TwMhz3zOQFntEHqxMEnPTcvRaZU7XKltXkcCOSE/aq/7Th4kKK3clxSY6p9d0ROdOG9pxZBekArI5UVnfR6rQwlppOl3RDQcoklwMazAKS+pZ6OYuomScvM2cb9cI9636IXO3K7ygREMojokOnDUADi4ZHKBluXSUVM3PVVaYrFNV6asMULJmqQBRtUjVCRhEgRhA4RNQhAXyYB6z90fFB5LTP1lb1rfF60Lk88fWU/ALPp+cresb4vV+5B9e706S9F9mM927Q0Ct0yqVLQK5SCw6a8rTFKoaZUrFRYbHKVqibopGDJQsJJEkiHBVLS5kMa1+Kq9kPaWgS0nEwkg4coMxv0T0+T9Wq9zqjQMZkzWJMng1gkdqOg84mjZiae0PaPBxXUWdejuetYc3YxKfIth2s/drHwqhadn5K046QpHqpv99QrXpKxEggGCRkdY4rOtI5IUBTtFRjQIaxrRGWQdu2LWs6xxiFpqNJmC4SZJPSBn26bFr2cqfXEfK9TCmphRUlKxUq0TbFUvlv/AOeoNmD3hWpVe+PMVPR94Se6b7OEuLR3oUv5gXUUVy1wnon1dL+YF1FArbplytMVimq7FYprNdO1GFG1SBAaIIAhe8zhbrtP3R8eChInvJOFvafu/wB1UYeeOFmVJphzgfOOBzaDGbZ1O2VE888TSpkik0kVHgkF52sY7xcDwV8VGMAGJrQIAzAyCDygZVa/rR+Jy0Ln8+fSpe9Uqb2itaMTcQxSIdEHHkZgzrorl0mLQYzzo9S3vsxbdDQK9TGSpUDIGmmyY9pKvUll015TUlM1R01K1UWEFK1RtUjVCRJ0ydEOCpmHtyykDtxAz3BdVZSuWpnNvpt966iylejuerHj2aNJWWFVaSssWTRyNX/F1vS/pWtZ1ju/xlf0v6Vs0FaqxdoqduqgpKdqpV4kCr3yfqKno+8KS0V202l73BrRqSYXL3nyqouIpMlznkAfdbn5RnU+xTIi1j3F5J9XR/mLp7OVzl0OJxGcyylMZfpeHguisy06Ui21WWFV2qdizXTtRhZV631Ss46Zl2xo8o/BcRevKavWkB2Bp+y3dxOpVpxar13I7a9+UNGh0cYL40HSwjiBt4Lkb25Y1KgNKzjA0k4nky/ZkCNHZa56rl6lQnotOe07vHPrRsaGiAtJ44zvkq9+UKuENFRwaBAAMAdQCrOqE6knrKjJTErWcyM7daFM9KqeDfxBat05V+yl4lY1JodzoOhY38TVsXV5/spfics60jao6K7TVKkr1JY9NuVmnopGKNikaqJSBStUTVKxEjTJYuKSlDgaRBIzHljedJnTcupsq4+7tnr6n4yuwsq27ZcezQpKO8b3o2cTVeAYkN1ceoBczffKwMllCC7Q1NWj0d546LiLXanPJc4lznbSZJ4lRz499y956R29jtXO16lQYodm0E5hpwkDhrot2guZ5PN09W2e5gXRPtLKbcb3BoHzA3lRYmNGksG++VjKUsow9+hd9lv9RXP31yhfWlrJZT3bXekd3Bc/UqRn3BW58fzVevJ8RZvK86tU4qry8/ZBOQ6hoFHdrYqMJ1L2z3qtTbtOp+YVmxH6xnrG+IWmM9dHcujvV0v5i6OzrnbkHRJ3tpfzAt2taG0mF7zAHt4BZVtF/EAJJgDUlc1fPKvVln6i8/8AEe9Yl7X1UrmPJZsaPfvWW50K/Pj/ACp13+BVqpJJJJccyTmesqvVqfZGp2+9NVqRlqSlSZHWdStL+GYqbYCKU0piUkKeU0pk0qUNCwu8v0G/jYtm7PP9lP8AE5Ydi0qerae6pTW5dfnj1M8Ssq1jboq7SCpUh4q7RWPTWLLFK1RsUrVVYbQhqPmQOIJ44Scu5C58nCN4k9Z0HFULxt/NtDGNLqjg0ABpdAcyMRjZKDY5kbh3JLlfoF4frT/F/UkiEFruZ9ncwue12Ko6AMg3Q7cyczJ8Fl8or5LiaNMw0ZPI+0d3V4qblbfz31H08IbzNSoxpEyQYzM7clyxqbuOfUYK345/LLu/gqj4+dSha3adT8whZnn3fFG4rRm7K5HtaJLhApAnXLycjKxr2vJ1d86MHkjcN54qvarX0WsBgQMXHL/pVXVNnCexVk9VrfQ9R/cFC0ScR7E0YjwClIVlTEqSxH62n6xn4goSjsXnafrG/iCn4RHV3VUY1hMnCG08yADAqDUTl3lYt73gaz5+yMmj39ahtlrODmxpDZ4kOn3qs5wAzyVJM9avbvpDkwoKlSMzqic7b3KFmZk6bPir6pgqTNp1KOUkMpE05TFKU0qVSJTSmlMSg1roqlvOFsTzQGbWu1qU9jgQtS7HE1cvusJPasa6jm/1Y/m01tXR53/1s9jnLLprG+0naZzOvWrVJVgMz6R8VaohY1rFliJz88I12ncPioalSIaPKOm4ZxiPDNQ2q2ss9PE45uOUnVzmtzPDeoSe9LeKDeiJec2NJGcOMkyRIzQXHdOH66r0qh0Lmslo1GbSc+oqC5bvdUd9IrCSTLQcDhMAYh0JAyEQV0MqAeJMmSRLwUiueeNptLKlQ1iHGk+k7MCSejBEnLQDLVWLO0vcKbBLnuAgbScgB1ldK+xNcDibRfO+nh78yqH5LNN4qUrLTDmuBBY+DkZ0II7U58+elh14t9ldtjqYsLmOEY8UCcOCQ6dgzBCr2oFjQ8hwacWZEZtiR3OHet6peVowsa4Vfq2hrXOp0qj4Aiaji/pnjGaq3pa6tQGbU4AkdH6M3BAAAGBxbBykkazwU/2P0j7LV5O1jzMScnmJzyyI17Vj2uympVtGF7WClSfWdiacw0CWtAOWo6XsWjc9sY2iGuIBNR7okTEho27mg9qFzQ+nbTSb9a+xVwHh5xaMYxuHQZjFinavDz5++Lb/AN7vV34+euZjkPythLWtwOxODQJeDmYmS3itFlYwcQAM7DiEb5ICwLsuSoazWvFVoL24XOaahDiRqWmAJzXX2Hk8yoKx+mNJpuDADTc04nCWvZBJc3UZjODplPVvm4kc/wC11qpVovAkscBEzhMQoKLukDuIXQPsVkc1rvpTW1C+q7AWnE5rpaA1mGTHQ13FYFs+jttLMFqpGm81DDm1G80IDmtqgNyOwRuVZ5pfda+K/AxVBdA2RPAgqGnVeThe0RmZOuRHuKiq1GlxLSJmJaSA5s657Mp3wjfWgROfiVpLKpZYNxxGNnzkpVFTIARY1MVoiUJKbEmxKypVCoyicUEqQiUcquyqHTGxxHaEdR5wkgGNJG+N+kqNJGvdGr/VD+bTW5dr2trkHKWADieceueuh+Tzt5gHtx01q2BrHVsb7UGuaGks5vokAOcQKhA3Adb1j3cbcx1tR7WyXGBiOZ60NqcHMBa7PUQc3ZHLq29ie/rEWtLSWyXB2vHvnYsKx3VzdU2h4gusr2OcHCWYS3AwHWXdImN0HQLHrmdTK0lsrdo/UsLnkveTOUkuLXmGtGsQDkq12WOpXqc7UlrRkPPUyW7GR0RA35yqzaZtVSCDhkkAhrgGkkhwIqtM5/dK6mz0WsaGsaGgbAAB15KJMmRO6sSnQAokSeEkk6keXc4N0dSNtXc4hPkUJpjcsGiZlofscCj+luGrAqhoDYU2Bw08UyC2bU06tI6iR70qHMgPj9JTNN0jPCSCQDluVXnHbUudG4eCi8SxMuJfycP0dd7d3ScSI4kymFkrBrGY2VW08WAPbmA44iMQgnPfKDo/P9kWew+1MNB9BfqbNZzBkQIz2GSdeKr17E17y+td9NzjmXyxziQAM5G4b1eFR29H9JcmU2M2pdlmqeXZKrMgOi0aAZDoOPhsVOrcFh1NWrTz+3LI/faF0AtRRtrtO5N6h6VzI5NUH+atZP8AqDvwlVrRyWtDc2OFQcHkHudl7V09Wx0H+Uxh6wFELloDyMbJ+5Ue0ewq076nyi8834cl+RbZ+qqfvN+KF9y2z9TU7C0+BXaMsVRvm7VWG7E4VB3PBSc62ZxWpu9KnB/hIU/d6V+3y5WzXDVaWOtDxSYWkkuLnFojKQ0ROYOEkGAdohaVHk099NtWlbLMGZtLqjC2S06+Q4GQQdVdvKpb3swltB4MAjARIbEavM6BQWCs+jTc3mXsAgtYyKmMkQYLj0IAGqn7ls1M5kPT5K1y1s2uyNy0hu6dlMqWzXGCDRq2mlibWOYNLA5paG5NDeiROKXAHo7llWq02UmX/SGHcKbQB24TI4KOhUsM1A6p5xrRiNPCW9IF2D7mQ3Zyq3qrx2N3XILO2pT+lWao2rTDTjfhI2yGCZIIOhEa56LnX12uqYaT8AADQ8Fwc7MHE2Rtg9ipN5OXdAwW/DuxOp5HjIE9pWzYuT7HBmG0ipgnpMcJO7QkZK18tZ/bjRsFvr13B9cDC0Eh5fLnOaWEEtwgRDteGm1WrZbOcqc206O0DwDPRIOBzSHDN05FY45P2gPytM08xhIIIECOlvybnlorlK76tOObrPBE5Go5zTJ2tcCO1R92fg+07C67K2kzCIk5ugMGf+hrR7FdaVx9O1WoDN1MxxP9OSr2nlQ+nk51KdwLie4BRPL+qn7eO8BVW23pTpCXOC8yvDlraHCGNaOPwzWHVvaq4y5pJ6x8Vrzd94pY9V/Oylx7kl5T+UX/AHD7PinV/wDFX/J1IJT4lK+gRoonNI1kLzNjg704+dqABL5yQH3FAQPkJSixfJQBzIQ82RtUwhCTunuQRFxH9kQqlSSd0oSQgYVPkJ8SbmxsQlhUiQlNJCjM/P8AZPJQTCrxPz1p21zv9hUGNOTwUC420n/o+5P9I3z2hUpT4jsKZDVsuadyr1buouBmm3jkPdCjLz19ycVh1dsJhqrX5O2cz0AJ3Bw9sqjU5ItBDmPcCNI1B4HULabWnQ+9EKvEe0J6nowHXPa6cc3XeYP3jHdOeuiX0y8aeWLFG9rDPe1dCKp3HszTmq06+0IOcPKe3NEOpsnfhJPaGuhN+cVOpAr2OTGbmOIM7YBA8V0XMsOwdkD51VerdjTpI4TkU39DCq2i73aOtFPhhDvZ/dVpsx8m1RwfScPa2Qtx/J6kcso1GXeqr+Tgb5Mbste3erztH0s3mKX/AJNLuqf0J1o/m51fxfFMp+tH0R1h+e8oK2nzwSSWS6g5O3X53pJKUBejCSSBm6/O9EUkkDN1TP8An2JJIBPuRtSSQOom6pJIHeoxr3JJKQb1GkkiBHTsTu9wTpIKjvL7SrL06SBrHqVYqJJIlXq69vvVqikkoBN9yd3v+CSSgEkkkiX/2Q==" alt="oil infrastructure">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeBS1qhIUUZyqd4B_NHlM_d_OTZ1om_Vlblg&s" alt="control room">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSXJKGH_PvpoHv-ZE8EpR_L9Gsh6pKYLfToQ&s" alt="control room">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTznEHxz4VV2VbLGJME3akpYNiERloZqck9gw&s" alt="control room">
+      </div>       
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="page">
+      <div class="section-title"><h3>Contact Us</h3></div>
+      <div class="grid contact-grid">
+        <div>
+          <div class="about-card">
+            <p class="muted">For commercial enquiries, quotations or partnerships please reach out using the form. Our commercial team typically responds within 24-48 hours.</p>
+            <form onsubmit="submitForm(event)">
+              <div class="row" style="margin-top:12px">
+                <input type="text" id="name" placeholder="Full name" required>
+                <input type="email" id="email" placeholder="Email" required>
+              </div>
+              <div style="margin-top:12px">
+                <input type="text" id="company" placeholder="Company (optional)">
+              </div>
+              <div style="margin-top:12px">
+                <textarea id="message" placeholder="Your message" required></textarea>
+              </div>
+              <div style="margin-top:12px;display:flex;gap:10px;align-items:center">
+                <button type="submit" class="btn primary">Send Message</button>
+                <div class="muted">Or email us at <a href="mailto:info@gallantrade.com">info@gallantrade.com</a> | <a href="mailto:rajapitla@gallantrade.com">rajapitla@gallantrade.com</a></div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div>
+          <div class="map">
+            <!-- Example Google Maps embed: replace src with your location or API embed -->
+            <iframe width="100%" height="100%" style="min-height:360px;border:0" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3603.1234567890123!2d55.XXXX!3d25.XXXX!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjXCsDAwJzAwLjAiTiA1NcKwMDAnMDAuMCJF!5e0!3m2!1sen!2s!4v0000000000000" allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+        <div>
+          <strong style="color:var(--white)">Gallant Trading FZ-LLC</strong>
+          <div class="muted">Empowering Global Energy — Office No. E-15F-37, E-LOB, Hamriyah Free Zone, Sharjah, UAE</div>
+        </div>
+        <div class="muted">© <span id="year"></span> GALLANT TRADING. All rights reserved. | <a href="https://www.gallantrade.com" target="_blank">www.gallantrade.com</a> | <a href="mailto:info@gallantrade.com">info@gallantrade.com</a> | <a href="mailto:rajapitla@gallantrade.com">rajapitla@gallantrade.com</a> | <a href="tel:+971501780577">+971 50 178 0577</a></div>
+      </div>
+    </footer>
+
+  </main>
+
+  <script>
+    // toggleMobile() was previously missing and caused a ReferenceError.
+    // Define it so the mobile menu button works without errors.
+    function toggleMobile(){
+      const nav = document.getElementById('main-nav');
+      if(!nav) return;
+      nav.classList.toggle('open');
+    }
+
+    // Basic hash-based navigation to emulate multiple pages without server routing.
+    function navigate(hash){
+      if(!hash) hash = '#home';
+      // normalize
+      if(hash.charAt(0) !== '#') hash = '#'+hash;
+      // hide all pages
+      document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+      const el = document.querySelector(hash);
+      if(el) el.classList.add('active');
+      // update URL without adding history entry
+      try{ history.replaceState(null, null, hash); }catch(e){}
+      window.scrollTo({top:0,behavior:'smooth'});
+      // close mobile nav after navigation (small screens)
+      const nav = document.getElementById('main-nav');
+      if(window.innerWidth < 680 && nav){ nav.classList.remove('open'); }
+    }
+
+    function submitForm(e){
+      e.preventDefault();
+      const name = document.getElementById('name')?.value || '';
+      alert('Thank you, '+ (name || 'Guest') +'. Your message has been recorded. (Demo only)');
+      e.target.reset();
+    }
+
+    // Close the mobile nav when clicking outside of it (on small screens)
+    document.addEventListener('click', (evt)=>{
+      const nav = document.getElementById('main-nav');
+      const toggle = document.querySelector('.menu-toggle');
+      if(!nav || !toggle) return;
+      if(window.innerWidth >= 680) return; // only for small screens
+      const target = evt.target;
+      if(!nav.contains(target) && !toggle.contains(target)){
+        nav.classList.remove('open');
+      }
+    });
+
+    // initialize
+    document.getElementById('year').textContent = new Date().getFullYear();
+    window.addEventListener('load', ()=>{
+      const hash = location.hash || '#home';
+      navigate(hash);
+    });
+
+    // adjust nav visibility on resize
+    window.addEventListener('resize', ()=>{
+      const nav = document.getElementById('main-nav');
+      if(!nav) return;
+      if(window.innerWidth >= 680){
+        nav.classList.remove('open');
+        nav.style.display = '';
+      }
+    });
+  </script>
+</body>
+</html>
