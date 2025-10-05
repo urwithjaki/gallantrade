@@ -196,6 +196,19 @@ Our comprehensive approach combines market expertise, operational excellence, an
 </div>
 </footer>
 </main>
-<script>function toggleMobile(){const e=document.getElementById("main-nav");e&&e.classList.toggle("open")}function navigate(e){e||(e="#home"),"#"!==e.charAt(0)&&(e="#"+e),document.querySelectorAll(".page").forEach((e=>e.classList.remove("active")));const t=document.querySelector(e);t&&t.classList.add("active");try{history.replaceState(null,null,e)}catch(e){}window.scrollTo({top:0,behavior:"smooth"});const n=document.getElementById("main-nav");window.innerWidth<680&&n&&n.classList.remove("open")}function submitForm(e){e.preventDefault();const t=document.getElementById("name")?.value||"";alert("Thank you, "+(t||"Guest")+". Your message has been recorded. (Demo only)"),e.target.reset()}document.addEventListener("click",(e=>{const t=document.getElementById("main-nav"),n=document.querySelector(".menu-toggle");if(!t||!n)return;if(window.innerWidth>=680)return;const o=e.target;t.contains(o)||n.contains(o)||t.classList.remove("open")})),document.getElementById("year").textContent=(new Date).getFullYear(),window.addEventListener("load",(()=>{navigate(location.hash||"#home")})),window.addEventListener("resize",(()=>{const e=document.getElementById("main-nav");e&&window.innerWidth>=680&&(e.classList.remove("open"),e.style.display="")}))</script>
+<script>
+function toggleMobile(){const e=document.getElementById("main-nav");e&&e.classList.toggle("open")}
+function navigate(e){e||(e="#home"),"#"!==e.charAt(0)&&(e="#"+e),document.querySelectorAll(".page").forEach((e=>e.classList.remove("active")));const t=document.querySelector(e);t&&t.classList.add("active");try{history.replaceState(null,null,e)}catch(e){}window.scrollTo({top:0,behavior:"smooth"});const n=document.getElementById("main-nav");window.innerWidth<680&&n&&n.classList.remove("open")}
+function submitForm(e){e.preventDefault();const t=document.getElementById("name")?.value||"";alert("Thank you, "+(t||"Guest")+". Your message has been recorded. (Demo only)"),e.target.reset()}
+document.addEventListener("click",(e=>{const t=document.getElementById("main-nav"),n=document.querySelector(".menu-toggle");if(!t||!n)return;if(window.innerWidth>=680)return;const o=e.target;t.contains(o)||n.contains(o)||t.classList.remove("open")}))
+document.getElementById("year").textContent=(new Date).getFullYear()
+window.addEventListener("load",(()=>{navigate(location.hash||"#home")}))
+window.addEventListener("resize",(()=>{const e=document.getElementById("main-nav");e&&window.innerWidth>=680&&(e.classList.remove("open"),e.style.display="")}))
+document.addEventListener('contextmenu', function(e){e.preventDefault();alert('Right-click is disabled on this site.')})
+document.addEventListener('keydown', function(e){
+    if(e.ctrlKey&&(e.key==='s'||e.key==='S'||e.key==='u'||e.key==='U')){e.preventDefault();alert('This action is disabled.')}
+    if(e.key==='F12'){e.preventDefault();alert('Developer tools are disabled.')}
+})
+</script>
 </body>
 </html>
